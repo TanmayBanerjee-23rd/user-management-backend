@@ -1,0 +1,119 @@
+type User {
+  id: ID!
+  cell: String
+  dob: String
+  age: Int
+  email: String
+  gender: String
+  location: Location
+  login: Login
+  name: Name
+  picture: Picture
+  registered: Registered
+  role: String
+}
+
+type Location {
+  city: String
+  country: String
+  postcode: Int
+  state: String
+  street: Street
+}
+
+type Street {
+  number: Int
+  name: String
+}
+
+type Login {
+  uuid: String
+}
+
+type Name {
+  title: String
+  first: String
+  last: String
+}
+
+type Picture {
+  large: String
+}
+
+type Registered {
+  date: String
+  age: Int
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+input EmployeeFilter {
+  email: String
+  locationCity: String
+  locationCountry: String
+}
+
+input AddEmployeeInput {
+  cell: String!
+  dob: String!
+  age: Int!
+  email: String!
+  gender: String!
+  locationCity: String!
+  locationCountry: String!
+  locationPostcode: Int!
+  locationState: String!
+  locationStreetNumber: Int!
+  locationStreetName: String!
+  loginUuid: String!
+  nameTitle: String!
+  nameFirst: String!
+  nameLast: String!
+  pictureLarge: String!
+  registeredDate: String!
+  registeredAge: Int!
+  role: String!
+  password: String!
+}
+
+input UpdateEmployeeInput {
+  cell: String
+  dob: String
+  age: Int
+  email: String
+  gender: String
+  locationCity: String
+  locationCountry: String
+  locationPostcode: Int
+  locationState: String
+  locationStreetNumber: Int
+  locationStreetName: String
+  nameTitle: String
+  nameFirst: String
+  nameLast: String
+  pictureLarge: String
+  registeredDate: String
+  registeredAge: Int
+  role: String
+  password: String
+}
+
+type Query {
+  employees(
+    filter: EmployeeFilter
+    page: Int
+    limit: Int
+    sortBy: String
+    order: String
+  ): [User]
+  employee(uuid: String!): User
+}
+
+type Mutation {
+  addEmployee(input: AddEmployeeInput!): User
+  login(email: String!, password: String!): AuthPayload
+  updateEmployee(uuid: String!, input: UpdateEmployeeInput!): User
+}
